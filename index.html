@@ -1,0 +1,36 @@
+<html>
+  <head></head>
+<script src="socket.io.js"></script>
+<body>
+  <div>
+  Room: <input id="roomid"/>
+  </div>
+  <div>
+  Message: <input id="input"/>
+  </div>
+  <div id="responses">
+  </div>
+  <script>
+    const input = document.getElementById("input");
+
+    const socket = io("http://localhost:3001/");
+
+    document.getElementById("roomid").onchange = (evt) => {
+      socket.emit('room', evt.target.value);
+    }
+
+    input.oninput = (evt) => {
+      socket.emit(
+        "message",
+        JSON.stringify({ thread: 1, typed: evt.target.value })
+      );
+    };
+
+   socket.on("message", (msg) => {
+     console.log("hi!");
+     let responses = document.getElementById("responses");
+     responses.innerHTML = msg;
+   });
+  </script>
+</body>
+</html>
