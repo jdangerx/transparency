@@ -15,6 +15,8 @@
       "matches": ["*://*.messenger.com/*"],
       "js": ["transparency.js"]
     }
-  ]
+  ],
 
+  "permissions": ["*://*.messenger.com/*"],
+  "web_accessible_resources": ["page.js"]
 }

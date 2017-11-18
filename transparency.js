@@ -1,25 +1,25 @@
-const ShortProfiles = require("ShortProfiles");
-const MercuryTypingReceiver = require("MercuryTypingReceiver");
+var script = document.createElement('script');
+script.src = browser.extension.getURL('page.js');
+script.onload = function() {
+    this.remove();
+};
+(document.head || document.documentElement).appendChild(script);
 
-console.log(ShortProfiles);
-console.log(MercuryTypingReceiver);
-
-function getUserId(fbid) {
-  return fbid.split(':')[1];
-}
-
-function inThreadFor(userId) {
-  const prof = ShortProfiles.getNow(userId);
-  const vanity = prof.vanity;
+function handleTyping(users) {
   const path = window.location.pathname;
-  return path.includes(userId) || path.includes(vanity);
-}
-
-function onTyping(data) {
-  const theirIds = Object.keys(data).map(getUserId);
-  for (let id of theirIds) {
-    if (inThreadFor(id)) {
-      console.log(id);
+  for (let userId of Object.keys(users)) {
+    let user = users[userId];
+    if (path.includes(userId) || path.includes(user.vanity)) {
+      console.log(user);
     }
   }
 }
+
+
+window.addEventListener("message", function(event) {
+  if (event.source == window &&
+      event.data &&
+      event.data.type === "typingUpdate") {
+    handleTyping(event.data.typing);
+  }
+});
