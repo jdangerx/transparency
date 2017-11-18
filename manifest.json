@@ -16,7 +16,9 @@
       "js": ["transparency.js"]
     }
   ],
-
-  "permissions": ["*://*.messenger.com/*"],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": ["*://*.messenger.com/*", "tabs"],
   "web_accessible_resources": ["page.js"]
 }

@@ -5,11 +5,18 @@ script.onload = function() {
 };
 (document.head || document.documentElement).appendChild(script);
 
+
+browser.runtime.onMessage.addListener((msg)=> {
+  console.log(msg);
+});
+
+
 function handleTyping(users) {
   const path = window.location.pathname;
   for (let userId of Object.keys(users)) {
     let user = users[userId];
     if (path.includes(userId) || path.includes(user.vanity)) {
+      //
       console.log(user);
     }
   }
