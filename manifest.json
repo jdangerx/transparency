@@ -1,0 +1,20 @@
+{
+
+  "manifest_version": 2,
+  "name": "Transparency",
+  "version": "1.0",
+
+  "description": "Radical transparency.",
+
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.messenger.com/*"],
+      "js": ["transparency.js"]
+    }
+  ]
+
+}
